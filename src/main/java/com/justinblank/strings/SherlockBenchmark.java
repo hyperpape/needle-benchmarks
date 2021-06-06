@@ -12,6 +12,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+// These tests are essentially pulled from https://github.com/rust-lang/regex/blob/master/bench/src/sherlock.rs, but do
+// slightly less work, because the engine currently doesn't support getting all matches within a string
+
 @State(Scope.Benchmark)
 public class SherlockBenchmark {
 
