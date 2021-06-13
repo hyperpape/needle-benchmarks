@@ -12,16 +12,10 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-// These tests are essentially pulled from https://github.com/rust-lang/regex/blob/master/bench/src/sherlock.rs, but do
-// slightly less work, because the engine currently doesn't support getting all matches within a string
+// These tests are essentially pulled from https://github.com/rust-lang/regex/blob/master/bench/src/sherlock.rs
 
 @State(Scope.Benchmark)
 public class SherlockBenchmark {
-
-    private static final String SHERLOCK_TEXT;
-
-    // Note: The options featuring Adler are structurally equivalent to the others but will consume much more input before being
-    // matched
 
     @Param({"Sherlock", "Adler", "Sherlock|Holmes", "Sherlock|Street", "Adler|Watson", "([Ss]herlock)|([Hh]olmes)",
             "Sherlock|Holmes|Watson|Irene|Adler|John|Baker", "the\\s+\\w+", "zqj", "aqj", "[a-q][^u-z]{13}x",
@@ -32,20 +26,6 @@ public class SherlockBenchmark {
     DFA dfa;
     Pattern pattern;
     java.util.regex.Pattern javaRegex;
-
-    static {
-        try {
-            var resource = SherlockBenchmark.class.getClassLoader().getResource("sherlock.txt");
-
-            Map<String, String> env = new HashMap<>();
-            env.put("create", "true");
-            FileSystem zipfs = FileSystems.newFileSystem(resource.toURI(), env);
-            SHERLOCK_TEXT = Files.readString(Path.of(resource.toURI()));
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Setup()
     public void setup() {
@@ -59,82 +39,25 @@ public class SherlockBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMySearchMethod() {
-        return method.matcher(SHERLOCK_TEXT).containedIn();
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyNFA() {
-        return nfa.matcher(SHERLOCK_TEXT).containedIn();
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyDFA() {
-        return dfa.search(SHERLOCK_TEXT).matched;
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testJavaRegex() {
-        return javaRegex.matcher(SHERLOCK_TEXT).find();
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyPattern() {
-        return pattern.matcher(SHERLOCK_TEXT).containedIn();
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testAdlerWatsonHandMatcher() {
-        return new AdlerWatsonHandMatcher(SHERLOCK_TEXT).containedIn();
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testAdlerContains() {
-        return SHERLOCK_TEXT.contains("Adler");
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testSherlockContains() {
-        return SHERLOCK_TEXT.contains("Sherlock");
-    }
-
-    public static void main(String[] args) {
-        Pattern pattern = DFACompiler.compile("Sherlock", "SherlockPattern");
-        int counter = 0;
-        for (int i = 0; i < 1000000; i++) {
-            String s;
-            if (new Random().nextBoolean()) {
-                s = "Abcdefer Sherlock";
-            }
-            else {
-                if (new Random().nextBoolean()) {
-                    s = "Abcdefer Watson";
-                }
-                else {
-                    s = "Abcdefer Adler";
-                }
-            }
-            if (pattern.matcher(s).containedIn()) {
-                counter++;
-            }
-            if (new AdlerWatsonHandMatcher(s).containedIn()) {
-                counter++;
-            }
+    public int testJavaRegex() {
+        int count = 0;
+        var m = javaRegex.matcher(SherlockText.TEXT);
+        while (m.find()) {
+            count++;
         }
-        System.out.println(counter);
+        return count;
+    }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    public int testMyPattern() {
+        int count = 0;
+        var m = pattern.matcher(SherlockText.TEXT);
+        while (m.find().matched) {
+            count++;
+        }
+        return count;
     }
 }
+
