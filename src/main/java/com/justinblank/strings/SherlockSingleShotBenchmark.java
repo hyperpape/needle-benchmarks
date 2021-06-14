@@ -43,35 +43,35 @@ public class SherlockSingleShotBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMySearchMethod() {
+    public boolean searchMethod() {
         return method.matcher(SherlockText.TEXT).containedIn();
     }
 
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyNFA() {
+    public boolean nfa() {
         return nfa.matcher(SherlockText.TEXT).containedIn();
     }
 
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyDFA() {
+    public boolean dfa() {
         return dfa.search(SherlockText.TEXT).matched;
     }
 
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testJavaRegex() {
+    public boolean javaRegex() {
         return javaRegex.matcher(SherlockText.TEXT).find();
     }
 
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyPattern() {
+    public boolean pattern() {
         return pattern.matcher(SherlockText.TEXT).containedIn();
     }
 
@@ -94,31 +94,5 @@ public class SherlockSingleShotBenchmark {
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     public boolean testSherlockContains() {
         return SherlockText.TEXT.contains("Sherlock");
-    }
-
-    public static void main(String[] args) {
-        Pattern pattern = DFACompiler.compile("Sherlock", "SherlockPattern");
-        int counter = 0;
-        for (int i = 0; i < 1000000; i++) {
-            String s;
-            if (new Random().nextBoolean()) {
-                s = "Abcdefer Sherlock";
-            }
-            else {
-                if (new Random().nextBoolean()) {
-                    s = "Abcdefer Watson";
-                }
-                else {
-                    s = "Abcdefer Adler";
-                }
-            }
-            if (pattern.matcher(s).containedIn()) {
-                counter++;
-            }
-            if (new AdlerWatsonHandMatcher(s).containedIn()) {
-                counter++;
-            }
-        }
-        System.out.println(counter);
     }
 }

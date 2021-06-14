@@ -10,6 +10,6 @@ public class SherlockBenchmarkTest {
     public void testEqualsCount() {
         var b = new SherlockBenchmark();
         b.setup();
-        assertEquals(b.testJavaRegex(), b.testMyPattern());
+        assertEquals(b.javaRegex(), b.pattern());
     }
 }

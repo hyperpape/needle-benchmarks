@@ -39,7 +39,7 @@ public class SherlockBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public int testJavaRegex() {
+    public int javaRegex() {
         int count = 0;
         var m = javaRegex.matcher(SherlockText.TEXT);
         while (m.find()) {
@@ -51,7 +51,7 @@ public class SherlockBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public int testMyPattern() {
+    public int pattern() {
         int count = 0;
         var m = pattern.matcher(SherlockText.TEXT);
         while (m.find().matched) {
