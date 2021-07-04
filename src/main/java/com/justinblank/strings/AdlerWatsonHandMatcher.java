@@ -107,13 +107,4 @@ public class AdlerWatsonHandMatcher {
         this.counter = counter;
         return -1;
     }
-
-    public static void main(String[] args) {
-        System.out.println(new AdlerWatsonHandMatcher("Adler").containedIn());
-        System.out.println(new AdlerWatsonHandMatcher("No Adler").containedIn());
-        System.out.println(new AdlerWatsonHandMatcher("Watson").containedIn());
-        System.out.println(new AdlerWatsonHandMatcher("No Watson").containedIn());
-        System.out.println(new AdlerWatsonHandMatcher("GarbWage").containedIn());
-        System.out.println(new AdlerWatsonHandMatcher("dler").containedIn());
-    }
 }

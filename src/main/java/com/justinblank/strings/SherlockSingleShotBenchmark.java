@@ -78,21 +78,7 @@ public class SherlockSingleShotBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testAdlerWatsonHandMatcher() {
-        return new AdlerWatsonHandMatcher(SherlockText.TEXT).containedIn();
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testAdlerContains() {
-        return SherlockText.TEXT.contains("Adler");
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testSherlockContains() {
-        return SherlockText.TEXT.contains("Sherlock");
+    public boolean containedIn() {
+        return SherlockText.TEXT.contains(regexString);
     }
 }
