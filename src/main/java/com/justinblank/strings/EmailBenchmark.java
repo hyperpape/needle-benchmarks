@@ -72,7 +72,7 @@ public class EmailBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyMatcher() throws Exception {
+    public boolean pattern() throws Exception {
         index = (index + 1) % 10000;
         String toMatch = strings.get(index);
         Matcher instance = pattern.matcher(toMatch);
@@ -82,7 +82,7 @@ public class EmailBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyNFA() throws Exception {
+    public boolean nfa() throws Exception {
         index = (index + 1) % 10000;
         String toMatch = strings.get(index);
         return NFA_SEARCH_METHOD.matches(toMatch);
@@ -91,7 +91,7 @@ public class EmailBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyDFA() throws Exception {
+    public boolean dfa() throws Exception {
         index = (index + 1) % 10000;
         String toMatch = strings.get(index);
         return MY_DFA.matches(toMatch);
@@ -100,7 +100,7 @@ public class EmailBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testRegexMatcher() throws Exception {
+    public boolean javaRegex() throws Exception {
         index = (index + 1) % 10000;
         String toMatch = strings.get(index);
         return REGEX_PATTERN.matcher(toMatch).matches();

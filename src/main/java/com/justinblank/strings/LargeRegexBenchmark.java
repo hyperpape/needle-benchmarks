@@ -75,7 +75,7 @@ public class LargeRegexBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyMatcher() {
+    public boolean pattern() {
         index = (index + 1) % 10000;
         String toMatch = STRINGS.get(index);
         Matcher instance = pattern.matcher(toMatch);
@@ -85,7 +85,7 @@ public class LargeRegexBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyNFA() {
+    public boolean nfa() {
         index = (index + 1) % 10000;
         String toMatch = STRINGS.get(index);
         return nfa.matches(toMatch);
@@ -94,7 +94,7 @@ public class LargeRegexBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testMyDFA() {
+    public boolean dfa() {
         index = (index + 1) % 10000;
         String toMatch = STRINGS.get(index);
         return dfa.matches(toMatch);
@@ -103,7 +103,7 @@ public class LargeRegexBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testRegexMatcher() {
+    public boolean javaRegex() {
         index = (index + 1) % 10000;
         String toMatch = STRINGS.get(index);
         return regexPattern.matcher(toMatch).matches();

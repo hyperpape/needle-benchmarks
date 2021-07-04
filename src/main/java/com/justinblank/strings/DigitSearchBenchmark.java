@@ -61,7 +61,7 @@ public class DigitSearchBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public MatchResult testMyNFASearch() throws Exception {
+    public MatchResult nfa() throws Exception {
         index = (index + 1) % 10000;
         String toMatch = STRINGS.get(index);
         return NFA_SEARCH_METHOD.find(toMatch);
@@ -70,7 +70,7 @@ public class DigitSearchBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public MatchResult testMyDFASearch() throws Exception {
+    public MatchResult dfa() throws Exception {
         index = (index + 1) % 10000;
         String toMatch = STRINGS.get(index);
         return MY_DFA.search(toMatch);
@@ -79,7 +79,7 @@ public class DigitSearchBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean testRegexSearch() throws Exception {
+    public boolean javaRegex() throws Exception {
         index = (index + 1) % 10000;
         String toMatch = STRINGS.get(index);
         return REGEX_PATTERN.matcher(toMatch).find();
