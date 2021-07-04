@@ -75,10 +75,4 @@ public class SherlockSingleShotBenchmark {
         return pattern.matcher(SherlockText.TEXT).containedIn();
     }
 
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean containedIn() {
-        return SherlockText.TEXT.contains(regexString);
-    }
 }
