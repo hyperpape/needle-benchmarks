@@ -75,11 +75,21 @@ public class LargeRegexBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public boolean pattern() {
+    public boolean patternMatches() {
         index = (index + 1) % 10000;
         String toMatch = STRINGS.get(index);
         Matcher instance = pattern.matcher(toMatch);
         return instance.matches();
+    }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    public boolean patternContainedIn() {
+        index = (index + 1) % 10000;
+        String toMatch = STRINGS.get(index);
+        Matcher instance = pattern.matcher(toMatch);
+        return instance.containedIn();
     }
 
     @Benchmark
@@ -107,5 +117,14 @@ public class LargeRegexBenchmark {
         index = (index + 1) % 10000;
         String toMatch = STRINGS.get(index);
         return regexPattern.matcher(toMatch).matches();
+    }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    public boolean javaRegexContainedIn() {
+        index = (index + 1) % 10000;
+        String toMatch = STRINGS.get(index);
+        return regexPattern.matcher(toMatch).find();
     }
 }
