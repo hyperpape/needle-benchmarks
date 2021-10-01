@@ -59,5 +59,22 @@ public class SherlockBenchmark {
         }
         return count;
     }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    public int indexOf() {
+        int count = -1;
+        int patternLength = regexString.length();
+        var index = 0;
+        while (index != -1) {
+            count++;
+            index = SherlockText.TEXT.indexOf(regexString, index);
+            if (index != -1) {
+                index += patternLength;
+            }
+        }
+        return count;
+    }
 }
 
