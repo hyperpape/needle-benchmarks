@@ -19,8 +19,9 @@ public class SherlockBenchmark {
 
     @Param({"Sherlock", "Adler", "Sherlock|Holmes", "Sherlock|Street", "Adler|Watson", "([Ss]herlock)|([Hh]olmes)",
             "Sherlock|Holmes|Watson|Irene|Adler|John|Baker", "the\\s+\\w+", "zqj", "aqj", "[a-q][^u-z]{13}x",
-            "[a-zA-Z]+ing", "Holmes.{0,25}Watson|Watson.{0,25}Holmes", "\\s[a-zA-Z]{0,12}ing\\s", "[a-z][a-e]{6}z"})
-    String regexString = "([Ss]herlock)|(Hholmes)";
+            "[a-zA-Z]+ing", "Holmes.{0,25}Watson|Watson.{0,25}Holmes", "\\s[a-zA-Z]{0,12}ing\\s", "[a-z][a-e]{6}z",
+            "let us hear a true"})
+    String regexString = "shouldn't appear in tests";
     SearchMethod method;
     SearchMethod nfa;
     DFA dfa;
