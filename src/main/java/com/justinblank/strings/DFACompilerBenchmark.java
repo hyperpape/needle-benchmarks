@@ -13,6 +13,9 @@ public class DFACompilerBenchmark {
     private static final String LARGE_REGEX_CORE = "((123)|(234)|(345)|(456)|(567)|(678)|(789)|(0987)|(9876)|(8765)|(7654)|(6543)|(5432)|(4321)|(3210))";
     private static final String LARGE_REGEX = LARGE_REGEX_CORE + "{1,24}";
     private static final String HUGE_REGEX = LARGE_REGEX_CORE + "{1,128}";
+    private static final String HOLMES_WATSON_15 = "Holmes.{0,15}Watson|Watson.{0,15}Holmes|Adler.{0,15}Sherlock|Sherlock.{0,15}Adler";
+
+    private static final String HOLMES_WATSON_25 = "Holmes.{0,25}Watson|Watson.{0,25}Holmes|Adler.{0,25}Sherlock|Sherlock.{0,25}Adler";
 
     private int count = 0;
 
@@ -56,6 +59,20 @@ public class DFACompilerBenchmark {
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     public DFA compileHugeDFA() {
         return DFA.createDFA(HUGE_REGEX);
+    }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    public DFA compileHolmesWatson15DFA() {
+        return DFA.createDFA(HOLMES_WATSON_15);
+    }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    public DFA compileHolmesWatson25DFA() {
+        return DFA.createDFA(HOLMES_WATSON_25);
     }
 
     @Benchmark
