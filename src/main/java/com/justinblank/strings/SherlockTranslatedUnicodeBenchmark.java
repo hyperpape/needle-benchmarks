@@ -2,6 +2,7 @@ package com.justinblank.strings;
 
 import com.justinblank.strings.Search.SearchMethod;
 import com.justinblank.strings.loaders.SherlockText;
+import com.justinblank.strings.loaders.SherlockTranslatedUnicodeText;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 import org.openjdk.jmh.annotations.*;
@@ -12,35 +13,17 @@ import java.util.concurrent.TimeUnit;
 // The updated version lives at https://github.com/BurntSushi/rebar/blob/master/benchmarks/definitions/imported/sherlock.toml
 // but the older version was nicer because it included commentary about what each pattern represented
 @State(Scope.Benchmark)
-public class SherlockBenchmark {
+public class SherlockTranslatedUnicodeBenchmark {
 
-    @Param({"Sherlock",
-            "Adler",
-            "Sherlock|Holmes",
-            // Suffix search where almost all suffix matches will be a full match
-            "[Ss]herlock",
-            // Suffix search, but most instances will not be valid matches
-            "anywhere|somewhere",
-            // Search with prefix and suffix--unrealistic example
-            "the\\s\\w{1,20}\\s\\agency",
-            // Search with prefix and suffix--another unrealistic example
-            "Sherlock\\s\\w{1,20}ed",
-            "Sherlock|Street",
-            "Adler|Watson",
-            "([Ss]herlock)|([Hh]olmes)",
-            "Sherlock|Holmes|Watson|Irene|Adler|John|Baker",
-            "the\\s+\\w+",
-            "zqj",
-            "aqj",
-            "[a-q][^u-z]{13}x",
-            "[a-zA-Z]+ing",
-            // Large regex with two essential factors
-            "Holmes.{0,25}Watson|Watson.{0,25}Holmes",
-            // Similarly large, but no essential factors
-            "Holmes.{0,15}Watson|Watson.{0,15}Holmes|Adler.{0,15}Sherlock|Sherlock.{0,15}Adler",
-            "\\s[a-zA-Z]{0,12}ing\\s",
-            "[a-z][a-e]{6}z",
-            "let us hear a true"})
+    @Param({
+            // Sherlock|Adler|Holmes|Watson|Irene|John|Baker
+            "Óèåòìïãë|Áäìåò|Èïìíåó|×áôóïî|Éòåîå|Êïèî|Âáëåò",
+            // Holmes.{0,25}Watson|Watson.{0,25}Holmes
+            "Èïìíåó.{0,25}×áôóïî|×áôóïî.{0,25}Èïìíåó",
+            // Holmes.{0,15}Watson|Watson.{0,15}Holmes|Adler.{0,15}Sherlock|Sherlock.{0,15}Adler
+            "Èïìíåó.{0,15}×áôóïî|×áôóïî.{0,15}Èïìíåó|Áäìåò.{0,15}Óèåòìïãë|Óèåòìïãë.{0,15}Áäìåò",
+            // [a-zA-z]+ing
+            "[á-úÁ-Ú]+éîç"})
     String regexString = "shouldn't appear in tests";
     SearchMethod method;
     SearchMethod nfa;
@@ -77,7 +60,7 @@ public class SherlockBenchmark {
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     public int pattern() {
         int count = 0;
-        var m = pattern.matcher(SherlockText.TEXT);
+        var m = pattern.matcher(SherlockTranslatedUnicodeText.TEXT);
         while (m.find().matched) {
             count++;
         }
@@ -89,7 +72,7 @@ public class SherlockBenchmark {
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     public int brics() {
         int count = 0;
-        var m = runAutomaton.newMatcher(SherlockText.TEXT);
+        var m = runAutomaton.newMatcher(SherlockTranslatedUnicodeText.TEXT);
         while (m.find()) {
             count++;
         }
@@ -107,7 +90,7 @@ public class SherlockBenchmark {
         var index = 0;
         while (index != -1) {
             count++;
-            index = SherlockText.TEXT.indexOf(regexString, index);
+            index = SherlockTranslatedUnicodeText.TEXT.indexOf(regexString, index);
             if (index != -1) {
                 index += patternLength;
             }
@@ -115,4 +98,5 @@ public class SherlockBenchmark {
         return count;
     }
 }
+
 

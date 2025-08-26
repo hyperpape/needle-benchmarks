@@ -1,6 +1,8 @@
 package com.justinblank.strings;
 
 import com.justinblank.strings.Search.SearchMethod;
+import com.justinblank.strings.loaders.SherlockAsciiText;
+import com.justinblank.strings.loaders.SherlockText;
 import dk.brics.automaton.AutomatonMatcher;
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;

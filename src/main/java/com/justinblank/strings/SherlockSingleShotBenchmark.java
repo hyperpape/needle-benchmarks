@@ -1,15 +1,9 @@
 package com.justinblank.strings;
 
 import com.justinblank.strings.Search.SearchMethod;
+import com.justinblank.strings.loaders.SherlockText;
 import org.openjdk.jmh.annotations.*;
 
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 // These tests are essentially pulled from https://github.com/rust-lang/regex/blob/master/bench/src/sherlock.rs, but do

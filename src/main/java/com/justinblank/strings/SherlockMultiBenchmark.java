@@ -1,5 +1,6 @@
 package com.justinblank.strings;
 
+import com.justinblank.strings.loaders.SherlockText;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.ArrayList;
