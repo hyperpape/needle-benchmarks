@@ -33,6 +33,10 @@ public class SherlockBenchmark {
             "zqj",
             "aqj",
             "[a-q][^u-z]{13}x",
+            "[aeiou][a-z]*ing",
+            "[bc][a-z]*ing",
+            "[bcdf][a-z]*ing",
+            "[zqjxkv][a-z]*ing",
             "[a-zA-Z]+ing",
             // Large regex with two essential factors
             "Holmes.{0,25}Watson|Watson.{0,25}Holmes",
