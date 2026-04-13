@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 public class SherlockTranslatedUnicodeBenchmark {
 
+    static final String TEXT = SherlockTranslatedUnicodeText.TEXT;
+
     @Param({
             // Sherlock|Adler|Holmes|Watson|Irene|John|Baker
             "Óèåòìïãë|Áäìåò|Èïìíåó|×áôóïî|Éòåîå|Êïèî|Âáëåò",
@@ -48,7 +50,7 @@ public class SherlockTranslatedUnicodeBenchmark {
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     public int javaRegex() {
         int count = 0;
-        var m = javaRegex.matcher(SherlockText.TEXT);
+        var m = javaRegex.matcher(SherlockTranslatedUnicodeText.TEXT);
         while (m.find()) {
             count++;
         }
@@ -72,7 +74,7 @@ public class SherlockTranslatedUnicodeBenchmark {
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     public int brics() {
         int count = 0;
-        var m = runAutomaton.newMatcher(SherlockTranslatedUnicodeText.TEXT);
+        var m = runAutomaton.newMatcher(TEXT);
         while (m.find()) {
             count++;
         }
