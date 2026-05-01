@@ -59,7 +59,7 @@ public class GenerateAssembly {
 
         for (int i = 0; i < 1000; i++) {
             Matcher matcher = PATTERN.matcher(HAYSTACK);
-            while (matcher.find().matched) {
+            while (matcher.find()) {
                 count++;
             }
         }

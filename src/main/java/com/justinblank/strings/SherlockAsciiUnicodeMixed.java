@@ -107,7 +107,7 @@ public class SherlockAsciiUnicodeMixed {
         if (iter == 100) {
             iter = 0;
         }
-        while (m.find().matched) {
+        while (m.find()) {
             count++;
         }
         return count;

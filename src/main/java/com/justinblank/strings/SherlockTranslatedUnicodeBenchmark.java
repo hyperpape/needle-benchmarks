@@ -63,7 +63,7 @@ public class SherlockTranslatedUnicodeBenchmark {
     public int pattern() {
         int count = 0;
         var m = pattern.matcher(SherlockTranslatedUnicodeText.TEXT);
-        while (m.find().matched) {
+        while (m.find()) {
             count++;
         }
         return count;

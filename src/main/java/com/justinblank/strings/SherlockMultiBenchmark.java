@@ -47,7 +47,7 @@ public class SherlockMultiBenchmark {
         int count = 0;
         for (var i = 0; i < PATTERNS.size(); i++) {
             var m = PATTERNS.get(i).matcher(SherlockText.TEXT);
-            while (m.find().matched) {
+            while (m.find()) {
                 count++;
             }
         }
