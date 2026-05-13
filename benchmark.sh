@@ -7,6 +7,7 @@ length=$2
 benchmark=$3
 timestamp=`date +%s`
 filename=output/$benchmark$timestamp
+benchmark_version=`git rev-parse HEAD`
 PROF=""
 
 echo `date` running benchmark $length $benchmark
@@ -28,7 +29,8 @@ then
     timing="-wi 5 -i 5 -r 60 -f 1"
 fi
 
-echo "# $version$" > $filename
+echo "# $version$" > "$filename"
+echo "# benchmark_version: $benchmark_version$" >> "$filename"
 
 if [[ $benchmark == "all" ]];
 then
